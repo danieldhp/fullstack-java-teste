@@ -11,8 +11,8 @@ Para a criação do Back-end foi a escolhida a *Opção 2* onde foram aplicadas 
 
 * AngularJS 1.6.1
 * Ui-Router 0.4.0
-* Bootstrap 3.2
-* Ui-Bootstrap 0.14.3
+* Bootstrap 3.3.7
+* Ui-Bootstrap 2.4.0
 
 ## Ambiente de desenvolvimento
 
