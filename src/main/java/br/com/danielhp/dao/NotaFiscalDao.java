@@ -40,6 +40,14 @@ public class NotaFiscalDao {
         return entityManager.createQuery("select t from NotaFiscal t").getResultList();
     }
 
+    /**
+     * Busca os registros de notasFiscais de acordo com os filtros
+     *
+     * @param mes
+     * @param ano
+     * @param cliente
+     * @return
+     */
     public List<NotaFiscal> list(Integer mes, Integer ano, Cliente cliente) {
         String condicao = "";
 
@@ -69,6 +77,11 @@ public class NotaFiscalDao {
         return entityManager.createQuery(query).getResultList();
     }
 
+    /**
+     * Persiste o objeto no banco de dados
+     *
+     * @param notaFiscal
+     */
     public void persist(NotaFiscal notaFiscal) {
         try {
             entityManager.getTransaction().begin();
@@ -80,6 +93,11 @@ public class NotaFiscalDao {
         }
     }
 
+    /**
+     * Atualiza o objeto no banco de dados
+     *
+     * @param notaFiscal
+     */
     public void merge(NotaFiscal notaFiscal) {
         try {
             entityManager.getTransaction().begin();

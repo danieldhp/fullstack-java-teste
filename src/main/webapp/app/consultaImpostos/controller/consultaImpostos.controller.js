@@ -13,6 +13,7 @@
         vm.getClientes = getClientes;
         vm.labelTipoImposto = labelTipoImposto;
         vm.alterarStatusImposto = alterarStatusImposto;
+        vm.verificaClienteSelecionado = verificaClienteSelecionado;
 
         (function init() {
             vm.filtro = {};
@@ -35,11 +36,17 @@
             return servicesFactory.cliente.listarClientes(filtro).then(function (res) {
                 if (!res || res.length === 0) {
                     res = [];
-                    var item = {nome: "Nenhum cliente encontrado com esse nome", id: 0};
+                    var item = {razaoSocial: "Nenhum cliente encontrado com esse nome", id: 0};
                     res.push(item);
                 }
                 return res;
             });
+        }
+
+        function verificaClienteSelecionado() {
+            if (vm.filtro.cliente.id === 0) {
+                vm.filtro.cliente = null;
+            }
         }
 
         function labelTipoImposto(imposto) {

@@ -6,6 +6,7 @@
                 <label>Cliente:</label>
                 <input type="text" class="form-control" data-ng-model="vm.filtro.cliente"
                        uib-typeahead="cliente as cliente.razaoSocial for cliente in vm.getClientes($viewValue)"
+                       typeahead-on-select="vm.verificaClienteSelecionado()"
                        typeahead-template-url="autoSugestCliente.html" placeholder="Cliente">
 
                 <script type="text/ng-template" id="autoSugestCliente.html">

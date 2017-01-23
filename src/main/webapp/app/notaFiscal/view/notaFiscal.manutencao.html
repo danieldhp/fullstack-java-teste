@@ -33,6 +33,7 @@
         <label class="required" for="cliente">Cliente:</label>
         <input type="text" class="form-control" data-ng-model="vm.notaFiscal.cliente" id="cliente"
                uib-typeahead="cliente as cliente.razaoSocial for cliente in vm.getClientes($viewValue)"
+               typeahead-on-select="vm.verificaClienteSelecionado()"
                typeahead-template-url="autoSugestCliente.html" required>
     </div>
     <script type="text/ng-template" id="autoSugestCliente.html">

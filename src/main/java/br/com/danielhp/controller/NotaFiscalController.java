@@ -16,6 +16,12 @@ import java.util.logging.Logger;
 public class NotaFiscalController {
     private static final Logger logger = Logger.getLogger(NotaFiscalController.class.getName());
 
+    /**
+     * Persiste ou atualiza o objeto do tipo NotaFiscal
+     *
+     * @param notaFiscalVo
+     * @return
+     */
     public Info salvarNotaFiscal(NotaFiscalVo notaFiscalVo) {
         Info info;
 
@@ -39,6 +45,11 @@ public class NotaFiscalController {
         return info;
     }
 
+    /**
+     * Lista as notasFiscais salvas
+     *
+     * @return
+     */
     public List<NotaFiscalVo> listarNotasFiscais() {
         List<NotaFiscalVo> listaNotasFiscais = null;
 

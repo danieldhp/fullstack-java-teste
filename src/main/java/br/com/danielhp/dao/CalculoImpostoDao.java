@@ -36,6 +36,14 @@ public class CalculoImpostoDao {
         return entityManager;
     }
 
+    /**
+     * Busca os registros de CalculoImposto de acordo com os filtros
+     *
+     * @param mes
+     * @param ano
+     * @param cliente
+     * @return
+     */
     public List<CalculoImposto> list(Integer mes, Integer ano, Cliente cliente) {
         String condicao = "";
 
@@ -69,6 +77,11 @@ public class CalculoImpostoDao {
         return entityManager.createQuery(query).getResultList();
     }
 
+    /**
+     * Persiste o objeto no banco de dados
+     *
+     * @param calculoImposto
+     */
     public void persist(CalculoImposto calculoImposto) {
         try {
             entityManager.getTransaction().begin();
@@ -80,6 +93,10 @@ public class CalculoImpostoDao {
         }
     }
 
+    /**
+     * Atualiza o objeto no banco de dados
+     * @param calculoImposto
+     */
     public void merge(CalculoImposto calculoImposto) {
         try {
             entityManager.getTransaction().begin();

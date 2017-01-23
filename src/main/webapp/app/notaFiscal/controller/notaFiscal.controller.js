@@ -16,6 +16,7 @@
         vm.voltar = voltar;
         vm.labelRegimeTributario = labelRegimeTributario;
         vm.getClientes = getClientes;
+        vm.verificaClienteSelecionado = verificaClienteSelecionado;
 
         (function init() {
             vm.filtro = {};
@@ -108,11 +109,17 @@
             return servicesFactory.cliente.listarClientes(filtro).then(function (res) {
                 if (!res || res.length === 0) {
                     res = [];
-                    var item = {nome: "Nenhum cliente encontrado com esse nome", id: 0};
+                    var item = {razaoSocial: "Nenhum cliente encontrado com esse nome", id: 0};
                     res.push(item);
                 }
                 return res;
             });
+        }
+
+        function verificaClienteSelecionado() {
+            if (vm.notaFiscal.cliente.id === 0) {
+                vm.notaFiscal.cliente = null;
+            }
         }
 
         return vm;

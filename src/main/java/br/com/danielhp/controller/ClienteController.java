@@ -17,6 +17,12 @@ import java.util.logging.Logger;
 public class ClienteController {
     private static final Logger logger = Logger.getLogger(ClienteController.class.getName());
 
+    /**
+     * Persiste ou atualiza o objeto do tipo Cliente
+     *
+     * @param clienteVo
+     * @return
+     */
     public Info salvarCliente(ClienteVo clienteVo) {
         Info info;
 
@@ -40,6 +46,12 @@ public class ClienteController {
         return info;
     }
 
+    /**
+     * Lista os clientes de acordo com o filtro informado
+     *
+     * @param filtro
+     * @return
+     */
     public List<ClienteVo> listarClientes(FiltroAutoSugest filtro) {
         List<ClienteVo> listaClientes = null;
 

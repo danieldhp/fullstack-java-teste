@@ -35,6 +35,12 @@ public class ClienteDao {
         return entityManager;
     }
 
+    /**
+     * Busca os registros de clientes de acordo com os filtros
+     *
+     * @param pesquisa
+     * @return
+     */
     public List<Cliente> list(String pesquisa) {
         String query = "select t from Cliente t ";
         if (pesquisa != null) {
@@ -43,10 +49,11 @@ public class ClienteDao {
         return entityManager.createQuery(query).getResultList();
     }
 
-    public List<Cliente> findAll() {
-        return entityManager.createQuery("select t from Cliente t").getResultList();
-    }
-
+    /**
+     * Persiste o objeto no banco de dados
+     *
+     * @param cliente
+     */
     public void persist(Cliente cliente) {
         try {
             entityManager.getTransaction().begin();
@@ -58,6 +65,11 @@ public class ClienteDao {
         }
     }
 
+    /**
+     * Atualiza o objeto no banco de dados
+     *
+     * @param cliente
+     */
     public void merge(Cliente cliente) {
         try {
             entityManager.getTransaction().begin();

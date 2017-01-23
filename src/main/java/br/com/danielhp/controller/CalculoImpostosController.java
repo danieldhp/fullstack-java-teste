@@ -24,11 +24,17 @@ import java.util.logging.Logger;
 public class CalculoImpostosController {
     private static final Logger logger = Logger.getLogger(ClienteController.class.getName());
 
+    /**
+     * Metodo responsavel por realizar os calculos dos impostos das notas fiscais no mes/ano informado
+     *
+     * @param informacoesCalculo
+     * @return
+     */
     public Info calcularImpostos(InformacoesCalculoVo informacoesCalculo) {
         Info info;
 
         try {
-            if (verificarCalculoClienteMes(informacoesCalculo)) {
+            if (verificarCalculoJaRealizadoMes(informacoesCalculo)) {
                 String mensagem = "Os impostos para o mes {0} de {1} já foram calculados.";
                 mensagem = MessageFormat.format(mensagem, informacoesCalculo.getMes(), informacoesCalculo.getAno().toString());
                 return new Info(Info.TIPO_DANGER, mensagem, null);
@@ -48,6 +54,12 @@ public class CalculoImpostosController {
         return info;
     }
 
+    /**
+     * Realiza os calculos dos impostos para o simples nacional
+     *
+     * @param informacoesCalculo
+     * @return
+     */
     private CalculoImposto calcularSimplesNacional(InformacoesCalculoVo informacoesCalculo) {
         NotaFiscalDao notaFiscalDao = NotaFiscalDao.getInstance();
         CalculoImpostoDao calculoImpostoDao = CalculoImpostoDao.getInstance();
@@ -58,9 +70,11 @@ public class CalculoImpostosController {
 
         Cliente cliente = ClienteMapper.convertToEntity(informacoesCalculo.getCliente());
 
+        //listo as notas do mes informado
         List<NotaFiscal> listaNotasFiscais = notaFiscalDao.list(
                 informacoesCalculo.getMes(), informacoesCalculo.getAno(), cliente);
 
+        //faco o somatorio dos totais de cada anexo
         for (NotaFiscal notaFiscal : listaNotasFiscais) {
             if (notaFiscal.getAnexo().equals(Constantes.ANEXO_COMERCIO)) {
                 totalAnexo1 = totalAnexo1.add(notaFiscal.getValor());
@@ -71,12 +85,15 @@ public class CalculoImpostosController {
             }
         }
 
+        //calculo a porcentagem para cada anexo
         BigDecimal totalImpostosAnexo1 = totalAnexo1.multiply(Constantes.ALIQUOTA_SIMPLES_NACIONAL_ANEXO_1).divide(new BigDecimal(100));
         BigDecimal totalImpostosAnexo2 = totalAnexo2.multiply(Constantes.ALIQUOTA_SIMPLES_NACIONAL_ANEXO_2).divide(new BigDecimal(100));
         BigDecimal totalImpostosAnexo3 = totalAnexo3.multiply(Constantes.ALIQUOTA_SIMPLES_NACIONAL_ANEXO_3).divide(new BigDecimal(100));
 
+        //soma os valores dos tres anexos
         BigDecimal totalSimplesNacional = totalImpostosAnexo1.add(totalImpostosAnexo2).add(totalImpostosAnexo3).setScale(2, BigDecimal.ROUND_HALF_UP);
 
+        //instancio um objeto tipo CalculoImposto e persisto o mesmo
         CalculoImposto calculoImposto = new CalculoImposto();
         calculoImposto.setPago(false);
         calculoImposto.setMesAnoReferente(informacoesCalculo.getMes(), informacoesCalculo.getAno());
@@ -89,6 +106,12 @@ public class CalculoImpostosController {
         return calculoImposto;
     }
 
+    /**
+     * Realiza os calculos dos impostos para o lucro presumido
+     *
+     * @param informacoesCalculo
+     * @return
+     */
     private void calcularLucroPresumido(InformacoesCalculoVo informacoesCalculo) {
         NotaFiscalDao notaFiscalDao = NotaFiscalDao.getInstance();
         CalculoImpostoDao calculoImpostoDao = CalculoImpostoDao.getInstance();
@@ -97,6 +120,7 @@ public class CalculoImpostosController {
 
         BigDecimal totalNotasFiscais = BigDecimal.ZERO;
 
+        //listo as notas do mes informado
         List<NotaFiscal> listaNotasFiscais = notaFiscalDao.list(
                 informacoesCalculo.getMes(), informacoesCalculo.getAno(), cliente);
 
@@ -148,6 +172,12 @@ public class CalculoImpostosController {
         calculoImpostoDao.persist(calculoImpostoCOFINS);
     }
 
+    /**
+     * Lista os impostos calculados de acordo com os filtros informados
+     *
+     * @param filtro
+     * @return
+     */
     public List<CalculoImpostoVo> listarCalculosImpostos(InformacoesCalculoVo filtro) {
         List<CalculoImpostoVo> listaImpostos = null;
 
@@ -164,6 +194,12 @@ public class CalculoImpostosController {
         return listaImpostos;
     }
 
+    /**
+     * Altera o status de pago do imposto calculado
+     *
+     * @param calculoImpostoVo
+     * @return
+     */
     public Info alterarStatusImposto(CalculoImpostoVo calculoImpostoVo) {
         Info info;
 
@@ -171,8 +207,10 @@ public class CalculoImpostosController {
         try {
             CalculoImposto calculoImposto = CalculoImpostoMapper.convertToEntity(calculoImpostoVo);
 
+            //inverte o valor da variavel
             calculoImposto.setPago(!calculoImposto.getPago());
 
+            //atualiza no banco de dados
             calculoImpostoDao.merge(calculoImposto);
 
             calculoImpostoVo = CalculoImpostoMapper.convertToVo(calculoImposto);
@@ -185,7 +223,13 @@ public class CalculoImpostosController {
         return info;
     }
 
-    public Boolean verificarCalculoClienteMes(InformacoesCalculoVo informacoesCalculoVo) {
+    /**
+     * Verifica se ja for realizado os calculos dos impostos para o mes/ano informado
+     *
+     * @param informacoesCalculoVo
+     * @return
+     */
+    public Boolean verificarCalculoJaRealizadoMes(InformacoesCalculoVo informacoesCalculoVo) {
         CalculoImpostoDao calculoImpostoDao = CalculoImpostoDao.getInstance();
 
         return calculoImpostoDao.list(informacoesCalculoVo.getMes(), informacoesCalculoVo.getAno(),

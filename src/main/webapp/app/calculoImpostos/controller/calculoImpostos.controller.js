@@ -12,10 +12,7 @@
         vm.calcularImpostos = calcularImpostos;
         vm.getClientes = getClientes;
         vm.novoCalculo = novoCalculo;
-
-        (function init() {
-            vm.filtro = {};
-        })();
+        vm.verificaClienteSelecionado = verificaClienteSelecionado;
 
         function calcularImpostos() {
             vm.alertas = [];
@@ -36,11 +33,17 @@
             return servicesFactory.cliente.listarClientes(filtro).then(function (res) {
                 if (!res || res.length === 0) {
                     res = [];
-                    var item = {nome: "Nenhum cliente encontrado com esse nome", id: 0};
+                    var item = {razaoSocial: "Nenhum cliente encontrado com esse nome", id: 0};
                     res.push(item);
                 }
                 return res;
             });
+        }
+
+        function verificaClienteSelecionado() {
+            if (vm.informacoesCalculo.cliente.id === 0) {
+                vm.informacoesCalculo.cliente = null;
+            }
         }
 
         function novoCalculo() {
