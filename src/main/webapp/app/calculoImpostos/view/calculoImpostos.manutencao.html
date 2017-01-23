@@ -1,0 +1,30 @@
+<form name="vm.frmCalculoImpostos" autocomplete="off">
+
+    <div class="form-group">
+        <label for="cliente" class="required">
+            Cliente:
+        </label>
+        <input type="text" class="form-control" data-ng-model="vm.informacoesCalculo.cliente" id="cliente"
+               uib-typeahead="cliente as cliente.razaoSocial for cliente in vm.getClientes($viewValue)"
+               typeahead-template-url="autoSugestCliente.html" required>
+    </div>
+    <script type="text/ng-template" id="autoSugestCliente.html">
+        <a>
+            <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span><br>
+        </a>
+    </script>
+
+    <div class="form-group">
+        <label for="mes" class="required">Mês:</label>
+        <input type="text" class="form-control" id="mes" data-ng-model="vm.informacoesCalculo.mes" required>
+    </div>
+
+    <div class="form-group">
+        <label for="ano" class="required">Ano:</label>
+        <input type="text" class="form-control" id="ano" data-ng-model="vm.informacoesCalculo.ano" required>
+    </div>
+
+    <button class="btn btn-default" type="submit" data-ng-click="vm.calcularImpostos()">CalcularImpostos</button>
+    <button class="btn btn-default" type="button" data-ng-click="vm.novoCalculo()">Novo calculo</button>
+
+</form>

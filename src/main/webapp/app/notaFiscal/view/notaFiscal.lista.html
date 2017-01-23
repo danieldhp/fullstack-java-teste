@@ -1,0 +1,27 @@
+<div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Número</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Valor</th>
+            <th class="opcoes">Editar</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr data-ng-repeat="notaFiscal in vm.listaNotasFiscais">
+            <td>{{notaFiscal.numero}}</td>
+            <td>{{notaFiscal.descricao}}</td>
+            <td>{{notaFiscal.data| date : 'dd/MM/yyyy'}}</td>
+            <td>{{notaFiscal.valor| currency : 'R$'}}</td>
+            <td>
+                <button type="button" class="btn btn-default" data-ng-click="vm.editarNotaFiscal(notaFiscal)">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

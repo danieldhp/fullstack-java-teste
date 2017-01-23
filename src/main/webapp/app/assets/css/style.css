@@ -1,0 +1,18 @@
+input:invalid {
+    border-color: #e32;
+    border-width: 1px;
+}
+
+select:invalid {
+    border-color: #e32;
+    border-width: 1px;
+}
+
+.required:after {
+    content: " *";
+    color: #e32;
+}
+
+:invalid {
+    box-shadow: none;
+}

@@ -1,0 +1,44 @@
+<form name="vm.frmCliente" autocomplete="off" >
+
+    <div class="form-group">
+        <label class="required" for="razaoSocial">Razão social:</label>
+        <input type="text" class="form-control" id="razaoSocial" required
+               data-ng-model="vm.cliente.razaoSocial" maxlength="200">
+    </div>
+
+    <div class="form-group">
+        <label class="required" for="cnpj">CNPJ:</label>
+        <input type="text" class="form-control" id="cnpj" data-ng-model="vm.cliente.cnpj"
+               maxlength="18" ui-mask="99.999.999/9999-99" required model-view-value="true">
+    </div>
+
+    <div class="form-group">
+        <label class="required" for="email">E-mail:</label>
+        <input type="text" class="form-control" id="email" data-ng-model="vm.cliente.email" required>
+    </div>
+
+    <div class="form-group">
+        <label class="required" for="cbLocal">Regime tributário:</label>
+        <select id="cbLocal" name="cbLocal" data-placeholder="Selecione" required
+                class="form-control" data-ng-model="vm.cliente.regimeTributario">
+            <option value="">Selecione</option>
+            <option value="SN">Simples nacional</option>
+            <option value="LP">Lucro presumido</option>
+        </select>
+    </div>
+
+    <div class="form-group" data-ng-if="vm.cliente.regimeTributario === 'SN'">
+        <label class="required" for="cbAnexo">Anexo:</label>
+        <select id="cbAnexo" name="cbLocal" data-placeholder="Selecione" required
+                class="form-control" data-ng-model="vm.notaFiscal.anexo">
+            <option value="">Selecione</option>
+            <option value="1">1 - Comércio</option>
+            <option value="2">2 - Indústria</option>
+            <option value="3">3 - Prestação de serviços</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-default" data-ng-click="vm.salvarCliente()">Salvar</button>
+    <button type="button" class="btn btn-default" data-ng-click="vm.voltar()">Voltar</button>
+
+</form>

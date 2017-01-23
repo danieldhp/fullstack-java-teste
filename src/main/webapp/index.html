@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="TesteContabilizei">
+<head>
+
+    <style>
+        /* This helps the ng-show/ng-hide animations start at the right place. */
+        /* Since Angular has this but needs to load, this gives us the class early. */
+        .ng-hide, .hide {
+            display: none !important;
+        }
+    </style>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Teste Contabilizei</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+
+    <script src="https://unpkg.com/angular-ui-router@0.4.0/release/angular-ui-router.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.4.0/ui-bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.4.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-mask/1.8.7/mask.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/app/assets/css/style.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <script src="/app/app.js"></script>
+
+    <!--modules-->
+    <script src="/app/cliente/cliente.module.js"></script>
+    <script src="/app/notaFiscal/notaFiscal.module.js"></script>
+    <script src="/app/calculoImpostos/calculoImpostos.module.js"></script>
+    <script src="/app/consultaImpostos/consultaImpostos.module.js"></script>
+    <script src="/app/util/util.module.js"></script>
+
+    <!--services-->
+    <script src="/app/cliente/service/cliente.service.js"></script>
+    <script src="/app/notaFiscal/service/notaFiscal.service.js"></script>
+    <script src="/app/calculoImpostos/service/calculoImpostos.service.js"></script>
+    <script src="/app/consultaImpostos/service/consultaImpostos.service.js"></script>
+    <script src="/app/util/util.service.js"></script>
+
+    <!--controllers-->
+    <script src="/app/cliente/controller/cliente.controller.js"></script>
+    <script src="/app/notaFiscal/controller/notaFiscal.controller.js"></script>
+    <script src="/app/calculoImpostos/controller/calculoImpostos.controller.js"></script>
+    <script src="/app/consultaImpostos/controller/consultaImpostos.controller.js"></script>
+
+    <!--diretivas-->
+    <script src="/app/diretivas/componentes.module.js"></script>
+    <script src="/app/diretivas/somenteNumero.js"></script>
+
+    <!--factory-->
+    <script src="/app/util/services.factory.js"></script>
+
+
+    <script src="/app/config/config.js"></script>
+    <script src="/app/config/config.route.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand">Teste contabilizei</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a ui-sref="cliente">Cliente</a></li>
+        <li><a ui-sref="notaFiscal">Notas fiscais</a></li>
+        <li><a ui-sref="calculoImpostos">Calcular impostos</a></li>
+        <li><a ui-sref="consultaImpostos">Consultar impostos</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+    <div ui-view></div>
+
+</div>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+<div class="post-container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div uib-alert ng-repeat="alerta in vm.alertas" close="vm.alertas.splice($index, 1);"
+                     type="{{alerta.tipo}}" ng-class="'alert-' + (alerta.tipo || 'warning')">
+                    {{alerta.mensagem}}
+                </div>
+                <div data-ng-include="'app/notaFiscal/view/notaFiscal.filtro.html'" data-ng-show="vm.lista"></div>
+                <div data-ng-include="'app/notaFiscal/view/notaFiscal.lista.html'" data-ng-show="vm.lista"></div>
+                <div data-ng-include="'app/notaFiscal/view/notaFiscal.manutencao.html'"
+                     data-ng-show="vm.manutencao"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Razão social</th>
+            <th>CNPJ</th>
+            <th>E-mail</th>
+            <th>Regime tributário</th>
+            <th class="opcoes">Editar</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr data-ng-repeat="cliente in vm.listaClientes">
+            <td>{{cliente.razaoSocial}}</td>
+            <td>{{cliente.cnpj}}</td>
+            <td>{{cliente.email}}</td>
+            <td>{{vm.labelRegimeTributario(cliente)}}</td>
+            <td>
+                <button type="button" class="btn btn-default" data-ng-click="vm.editarCliente(cliente)">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

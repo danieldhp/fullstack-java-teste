@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="form-group">
+
+            <div class="col-md-3">
+                <label>Cliente:</label>
+                <input type="text" class="form-control" data-ng-model="vm.filtro.cliente"
+                       uib-typeahead="cliente as cliente.razaoSocial for cliente in vm.getClientes($viewValue)"
+                       typeahead-template-url="autoSugestCliente.html" placeholder="Cliente">
+
+                <script type="text/ng-template" id="autoSugestCliente.html">
+                    <a>
+                        <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span><br>
+                    </a>
+                </script>
+            </div>
+
+            <div class="col-md-3">
+                <label>Mês:</label>
+                <input type="text" class="form-control" data-ng-model="vm.filtro.mes" placeholder="Mês">
+            </div>
+
+            <div class="col-md-3">
+                <label>Ano:</label>
+                <input type="text" class="form-control" data-ng-model="vm.filtro.ano" placeholder="Ano">
+            </div>
+
+            <button class="btn btn-default" type="submit" data-ng-click="vm.listarImpostos()">Pesquisar</button>
+        </div>
+    </div>
+</div>
