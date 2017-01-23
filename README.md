@@ -26,7 +26,7 @@ A estrutura do sistema foi dividida em packages por responsabilidades.
 * A Api é responsável por escutar as requisições HTTP e encaminhar a requisição para o Controller responsável.
 * O Controller é responsável pelas regras de negocio e comunicação com os Daos.
 * O Dao é responsável por realizar a comunicação com o banco de dados.
-* Todas as informações são retornadas do Controller em forma de VO (Value Object), a ideia por tras disso é não expor a camada de persistência na camada de apresentação
+* Todas as informações são retornadas do Controller em forma de VO (Value Object), a ideia por tras disso é não expor a camada de persistência na camada de apresentação e para não precisar criar propriedades transients.
 * Não foi utilizado o Bower e nem o NPM a fim de facilitar a instalação do ambiente para o projeto.
 
 ## Configuração do projeto
